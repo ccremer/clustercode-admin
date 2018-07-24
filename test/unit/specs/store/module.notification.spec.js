@@ -1,5 +1,6 @@
-import {actions, mutations, getters, mutationTypes, util} from '@/store/module.notification'
+import {actions, mutations, getters, mutationTypes} from '@/store/module.notification'
 import Notification from '@/js/notifications'
+let assert = require('assert')
 
 describe('Notification mutation', () => {
   let state = {list: []}
@@ -82,7 +83,7 @@ describe('Notification action', () => {
     ]
     const n = new Notification(Notification.LEVEL.INFO, 'testing', 'KEY')
     const commit = (type, payload) => {
-      fail(type, null, 'This commit should not execute!')
+      assert.fail(type, null, 'This commit should not execute!')
     }
     actions.add({commit, state, getters}, n)
 
@@ -92,7 +93,7 @@ describe('Notification action', () => {
   it('should clear all notification if payload is undefined', () => {
     let called = false
     const commit = (type, payload) => {
-      if (type !== mutationTypes.CLEAR_ALL) fail(type, mutationTypes.CLEAR_ALL, 'Wrong commit type.')
+      if (type !== mutationTypes.CLEAR_ALL) assert.fail(type, mutationTypes.CLEAR_ALL, 'Wrong commit type.')
       expect(payload).to.equal(undefined)
       called = true
     }
@@ -105,7 +106,7 @@ describe('Notification action', () => {
   it('should clear all notification if payload is null', () => {
     let called = false
     const commit = (type, payload) => {
-      if (type !== mutationTypes.CLEAR_ALL) fail(type, mutationTypes.CLEAR_ALL, 'Wrong commit type.')
+      if (type !== mutationTypes.CLEAR_ALL) assert.fail(type, mutationTypes.CLEAR_ALL, 'Wrong commit type.')
       expect(payload).to.equal(undefined)
       called = true
     }
@@ -121,7 +122,7 @@ describe('Notification action', () => {
     ]
     let called = false
     const commit = (type, payload) => {
-      if (type !== mutationTypes.CLEAR_BY_KEY) fail(type, mutationTypes.CLEAR_BY_KEY, 'Wrong commit type.')
+      if (type !== mutationTypes.CLEAR_BY_KEY) assert.fail(type, mutationTypes.CLEAR_BY_KEY, 'Wrong commit type.')
       expect(payload).to.equal('KEY')
       called = true
     }
@@ -138,7 +139,7 @@ describe('Notification action', () => {
     ]
     let called = false
     const commit = (type, payload) => {
-      if (type !== mutationTypes.CLEAR_NOTIFICATION) { fail(type, mutationTypes.CLEAR_NOTIFICATION, 'Wrong commit type.') }
+      if (type !== mutationTypes.CLEAR_NOTIFICATION) { assert.fail(type, mutationTypes.CLEAR_NOTIFICATION, 'Wrong commit type.') }
       expect(payload).to.equal(n)
       called = true
     }

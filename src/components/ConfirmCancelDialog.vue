@@ -1,6 +1,6 @@
 <template>
     <div>
-            <h4>{{displaymessage}}</h4>
+        <h4>{{displaymessage}}</h4>
         <div class="pull-right">
             <button type="button" class="btn btn-default" v-on:click="cancel()">Cancel</button>
             <button type="button" class="btn" :class="btnClass" v-on:click="ok()">{{proceedText}}</button>

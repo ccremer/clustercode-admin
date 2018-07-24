@@ -1,7 +1,7 @@
 <template>
     <ul class="dropdown-menu dropdown-tasks">
         <template v-for="task in tasks">
-            <li>
+            <li v-bind:key="task">
                 <a href="#">
                     <div>
                         <p>
@@ -18,7 +18,7 @@
                     </div>
                 </a>
             </li>
-            <li class="divider"></li>
+            <li v-bind:key="task" class="divider"></li>
         </template>
     </ul>
 </template>

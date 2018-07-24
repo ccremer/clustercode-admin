@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 import {mount} from 'avoriaz'
 import Notifications from '@/components/Notifications'
 import Notification from '@/js/notifications'
-import {actionTypes} from '@/store/module.notification'
+// import {actionTypes} from '@/store/module.notification'
 
 Vue.use(Vuex)
 
