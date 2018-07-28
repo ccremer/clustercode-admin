@@ -1,5 +1,5 @@
 # Builder Image
-FROM braindoctor/clustercode-admin:base as builder
+FROM braindoctor/clustercode-admin:builder as builder
 
 ADD build ./build
 ADD config ./config
