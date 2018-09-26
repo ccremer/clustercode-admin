@@ -3,7 +3,7 @@
 # original author  : paulfantom
 # Cross-arch docker build helper script
 
-REPOSITORY="${DOCKER_REPOSITORY}"
+REPOSITORY="${DOCKER_REPOSITORY:-braindoctor/clustercode-admin}"
 VERSION="-edge"
 
 docker run --rm --privileged multiarch/qemu-user-static:register --reset

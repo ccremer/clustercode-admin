@@ -1,7 +1,5 @@
 # clustercode-admin
 
-> Clustercode WebUI
-
 > Developed on JetBrain's Webstorm
 
 ## Build Setup
@@ -30,3 +28,14 @@ npm test
 ```
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
+## Docker Setup
+
+First, build the builder image, which will install all those npm packages and enables faster compile times.
+```
+./build-builder.sh
+```
+Then, build the slim runtime image:
+```
+./build-runtime.sh
+``` 
