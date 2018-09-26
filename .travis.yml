@@ -1,0 +1,22 @@
+---
+dist: xenial
+sudo: true
+
+services:
+- docker
+os:
+- linux
+
+jobs:
+  include:
+  - stage: builder
+    script: ./build-builder.sh
+  - stage: runtime
+    script: ./build-runtime.sh
+
+stages:
+- name: builder
+  if: tag =~ /^builder-.+$/
+
+- name: runtime
+  if: branch = master
