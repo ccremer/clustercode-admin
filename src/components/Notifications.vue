@@ -1,15 +1,15 @@
 <template>
   <div class="row" v-if="notifications.length">
     <div class="col-lg-12">
-      <div class="alert" v-for="notification in notifications" :key="notification"
-           v-bind:class="getClass(notification)">
-        <button type="button"
-                v-if="notification.dismissible"
-                v-on:click="dismiss(notification)"
-                class="close">×
-        </button>
-        {{notification.message}}
-      </div>
+        <b-alert
+          v-for="notification in notifications" :key="notification"
+          v-bind:class="getVariant(notification)"
+          @dismissible="notification.dismissible"
+          show
+          @dismissed="dismiss(notification)"
+        >
+          {{notification.message}}
+        </b-alert>
     </div>
   </div>
 </template>
@@ -31,7 +31,7 @@ export default {
     }
   },
   methods: {
-    getClass (notification) {
+    getVariant (notification) {
       return {
         'alert-danger': notification.level === Notification.LEVEL.ERROR,
         'alert-warning': notification.level === Notification.LEVEL.WARN,

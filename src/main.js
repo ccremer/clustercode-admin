@@ -2,23 +2,23 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 
 import Vue from 'vue'
+import BootstrapVue from 'bootstrap-vue'
 import App from './App.vue'
 import router from './router/index'
 import { store } from './store/state'
 import Vuedals from 'vuedals'
+import {Alert} from 'bootstrap-vue/es/components'
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 global.jQuery = global.$ = require('jquery')
-require('bootstrap/dist/css/bootstrap.min.css')
-require('bootstrap/dist/js/bootstrap.min')
-require('font-awesome/css/font-awesome.min.css')
-require('metismenu/dist/metisMenu.min')
-require('metismenu/dist/metisMenu.min.css')
-require('startbootstrap-sb-admin-2/dist/js/sb-admin-2.min')
-require('startbootstrap-sb-admin-2/dist/css/sb-admin-2.min.css')
+
 require('./css/clustercode.css')
 require('./js/clustercode')
 
+Vue.use(BootstrapVue)
 Vue.use(Vuedals)
+Vue.use(Alert)
 
 Vue.config.productionTip = false
 
