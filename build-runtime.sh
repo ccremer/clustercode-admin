@@ -27,6 +27,6 @@ fi
 # Push runtime images
 echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
 for ARCH in amd64 armhf i386 aarch64; do
-    docker push "${REPOSITORY}:${ARCH}${VERSION}"
+    docker push "${REPOSITORY}:${ARCH}"
 done
 docker push "${REPOSITORY}:latest"
