@@ -16,7 +16,7 @@ jobs:
 
 stages:
 - name: builder
-  if: tag =~ /^builder-.+$/
+  if: branch = master
 
 - name: runtime
   if: branch = master
