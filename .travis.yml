@@ -1,22 +1,31 @@
 ---
 dist: xenial
 sudo: true
+language: node_js
 
 services:
 - docker
 os:
 - linux
 
+stages:
+- name: devel
+- name: release branch
+
 jobs:
   include:
-  - stage: builder
-    script: ./build-builder.sh
-  - stage: runtime
-    script: ./build-runtime.sh
+  - stage: devel
+    script: .travis/build.sh
+    deploy:
+      - provider: script
+        script: .travis/deploy-docker.sh dev
+        on:
+          branch: master
 
-stages:
-- name: builder
-  if: branch = master
-
-- name: runtime
-  if: branch = master
+  - stage: release branch
+    script: .travis/build.sh
+    deploy:
+      - provider: script
+        script: .travis/deploy-docker.sh $TRAVIS_BRANCH
+        on:
+          condition: $TRAVIS_BRANCH =~ /^release-[0-9\.]+$/
