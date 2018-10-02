@@ -1,7 +1,7 @@
 ---
 dist: xenial
 sudo: true
-language: node_js
+language: generic
 
 services:
 - docker
