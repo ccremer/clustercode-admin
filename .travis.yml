@@ -10,6 +10,7 @@ os:
 
 stages:
 - name: devel
+  if: branch = master
 - name: release branch
 
 jobs:
@@ -17,15 +18,15 @@ jobs:
   - stage: devel
     script: .travis/build.sh
     deploy:
-      - provider: script
-        script: .travis/deploy-docker.sh dev
-        on:
-          branch: master
+    - provider: script
+      script: .travis/deploy-docker.sh dev
+      on:
+        branch: master
 
   - stage: release branch
-    script: .travis/build.sh
+    script: echo "travis branch = $TRAVIS_BRANCH, tag = $TRAVIS_TAG"; .travis/build.sh
     deploy:
-      - provider: script
-        script: .travis/deploy-docker.sh $TRAVIS_BRANCH
-        on:
-          condition: $TRAVIS_BRANCH =~ /^release-[0-9\.]+$/
+    - provider: script
+      script: .travis/deploy-docker.sh $TRAVIS_BRANCH
+      on:
+        condition: $TRAVIS_BRANCH =~ /^release-[0-9\.]+$/
