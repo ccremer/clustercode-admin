@@ -27,6 +27,11 @@ for ARCH in amd64 armhf i386 aarch64; do
     docker tag "${repo}:${old_tag}" "${repo}:${new_tag}"
     docker push "${repo}:${TAG}"
 done
-if [[ -n ${PUSH_LATEST} ]]; then
-    docker push "${REPOSITORY}:latest"
+
+latest_branch=$(git branch --remote | grep release | sort -r | head -n 1)
+
+if [[ "${TRAVIS_BRANCH}" = "${latest_branch#*origin/}" ]]; then
+    echo We are on latest release branch, push latest tag
+    docker tag "${repo}:amd64" "${repo}:latest"
+    docker push "${repo}:latest"
 fi

@@ -12,6 +12,7 @@ stages:
 - name: devel
   if: branch = master
 - name: release branch
+  if: branch =~ /release-[0-9\.]+/
 
 jobs:
   include:
@@ -20,13 +21,9 @@ jobs:
     deploy:
     - provider: script
       script: .travis/deploy-docker.sh dev
-      on:
-        branch: master
 
   - stage: release branch
     script: echo "travis branch = $TRAVIS_BRANCH, tag = $TRAVIS_TAG"; .travis/build.sh
     deploy:
     - provider: script
-      script: .travis/deploy-docker.sh $TRAVIS_BRANCH
-      on:
-        condition: $TRAVIS_BRANCH =~ /^release-[0-9\.]+$/
+      script: .travis/release-docker.sh $TRAVIS_BRANCH
