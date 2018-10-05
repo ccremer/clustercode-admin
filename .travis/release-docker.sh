@@ -19,7 +19,7 @@ if [ -z ${DOCKER_PASSWORD+x} ]; then
     exit 1
 fi
 
-# Push runtime images
+# Push versioned runtime images
 echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
 for ARCH in amd64 armhf i386 aarch64; do
     old_tag="${ARCH}"
@@ -28,10 +28,13 @@ for ARCH in amd64 armhf i386 aarch64; do
     docker push "${repo}:${new_tag}"
 done
 
+# Push latest images if eligible
 latest_branch=$(git branch --remote | grep release | sort -r | head -n 1)
-
 if [[ "${TRAVIS_BRANCH}" = "${latest_branch#*origin/}" ]]; then
     echo We are on latest release branch, push latest tag
     docker tag "${repo}:amd64" "${repo}:latest"
     docker push "${repo}:latest"
+    for ARCH in amd64 armhf i386 aarch64; do
+        docker push "${repo}:${ARCH}"
+    done
 fi
