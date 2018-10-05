@@ -21,9 +21,13 @@ jobs:
     deploy:
     - provider: script
       script: .travis/deploy-docker.sh dev
+      on:
+        branch: master
 
   - stage: release branch
-    script: echo "travis branch = $TRAVIS_BRANCH, tag = $TRAVIS_TAG"; .travis/build.sh
+    script: .travis/build.sh
     deploy:
     - provider: script
       script: .travis/release-docker.sh $TRAVIS_BRANCH
+      on:
+        all_branches: true
