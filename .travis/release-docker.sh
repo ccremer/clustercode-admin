@@ -25,7 +25,7 @@ for ARCH in amd64 armhf i386 aarch64; do
     old_tag="${ARCH}"
     new_tag="${version}-${ARCH}"
     docker tag "${repo}:${old_tag}" "${repo}:${new_tag}"
-    docker push "${repo}:${TAG}"
+    docker push "${repo}:${new_tag}"
 done
 
 latest_branch=$(git branch --remote | grep release | sort -r | head -n 1)
