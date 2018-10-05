@@ -13,4 +13,3 @@ for ARCH in armhf amd64 i386 aarch64; do
     tag="${ARCH}"
     docker build --build-arg ARCH="${ARCH}-edge" --tag "${repo}:${tag}" --file ./Dockerfile ./
 done
-
