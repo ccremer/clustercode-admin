@@ -21,11 +21,12 @@ RUN \
 
 # Runtime Image
 ARG ARCH
-FROM multiarch/alpine:${ARCH}
+FROM multiarch/ubuntu-core:${ARCH}
 
+CMD ["nginx", "-g", "daemon off;"]
 RUN \
-  apk update && \
-  apk add --no-cache nginx
+  apt-get update && \
+  apt-get install -qqy nginx
 
 COPY docker/nginx.conf /etc/nginx/nginx.conf
 COPY docker/clustercode.conf /etc/nginx/conf.d/

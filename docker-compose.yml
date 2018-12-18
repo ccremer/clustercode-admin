@@ -1,0 +1,46 @@
+version: '2'
+services:
+  backend:
+    image: braindoctor/clustercode:amd64
+    volumes:
+    - /etc/localtime:/etc/localtime:ro
+    - ../clustercode/clustercode.test.integration/input:/input
+    - ../clustercode/clustercode.test.integration/output:/output
+    - ../clustercode/clustercode.test.integration/profiles:/profiles
+    environment:
+    - CC_CONSTRAINTS_ACTIVE=CLUSTER
+    - CC_LOG_LEVEL_CORE=debug
+    networks:
+    - clustercode
+
+  # The frontend
+  admin:
+    build:
+      context: .
+      args:
+        ARCH: x86-bionic
+    depends_on:
+      - backend
+    links:
+      - backend
+    image: braindoctor/clustercode-admin:latest
+    volumes:
+    - /etc/localtime:/etc/localtime:ro
+    ports:
+    - "8082:80"
+    networks:
+    - clustercode
+    #entrypoint: /bin/sh
+#    command: [/bin/sh, -c,
+#              "export NAMESERVER=$$(cat /etc/resolv.conf \
+#            | grep 'nameserver' | awk '{print $$2}' | tr '\\n' ' ') && env \
+#          && echo Creating /etc/nginx/modules/resolver.conf \
+#          using nameserver $$NAMESERVER from /etc/resolv.conf \
+#          && echo 'resolver' $$NAMESERVER valid=5s ';' > /etc/nginx/modules/resolver.conf; \
+#          nslookup backend; \
+#          (test -e /etc/nginx/conf.d/default.conf \
+#           && rm /etc/nginx/conf.d/default.conf) && cat /etc/nginx/modules/resolver.conf; nginx -g 'daemon off;'"]
+
+networks:
+  clustercode:
+    driver: bridge

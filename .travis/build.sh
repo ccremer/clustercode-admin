@@ -9,7 +9,7 @@ docker run --rm --privileged multiarch/qemu-user-static:register --reset
 docker build --tag "${repo}:builder" --file ./builder.Dockerfile ./
 
 # Build runtime images
-for ARCH in armhf amd64 i386 aarch64; do
+for ARCH in armhf x86 arm64; do
     tag="${ARCH}"
-    docker build --build-arg ARCH="${ARCH}-edge" --tag "${repo}:${tag}" --file ./Dockerfile ./
+    docker build --build-arg ARCH="${ARCH}-bionic" --tag "${repo}:${tag}" --file ./Dockerfile ./
 done
