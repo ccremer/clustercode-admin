@@ -23,6 +23,7 @@ RUN \
 ARG ARCH
 FROM multiarch/alpine:${ARCH}
 
+CMD ["nginx","-g","daemon off;"]
 RUN \
   apk update && \
   apk add --no-cache nginx
